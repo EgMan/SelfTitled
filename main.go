@@ -73,17 +73,18 @@ func init() {
 
 	log.Printf("Attaching handlers...\n")
 	handlers = []Page{
-		Page{"/",				"",	HandleRoot},
-		Page{"/home",			mainHtml,	nil},
-		Page{"/bio",			bioHtml,	nil},
-		Page{"/iota",			iotaHtml,	nil},
-		Page{"/other",			otherHtml,	nil},
-		Page{"/resume",			resumeHtml,	nil},
-		Page{"/test",			"",			Test},
-		Page{"/search",			"",			HandleSearch},
-		Page{"/refresh",		mainHtml,	HandleRefresh},
-		Page{"/complain",		"",			HandleComplain},
-		Page{"/favicon.ico",	"",			HandleFavicon}}
+		Page{"/",				"",				HandleRoot},
+		Page{"/home",			mainHtml,		nil},
+		Page{"/bio",			bioHtml,		nil},
+		Page{"/iota",			iotaHtml,		nil},
+		Page{"/other",			otherHtml,		nil},
+		Page{"/resume",			resumeHtml,		nil},
+		Page{"/test",			"",				Test},
+		Page{"/search",			"",				HandleSearch},
+		Page{"/refresh",		mainHtml,		HandleRefresh},
+		Page{"/complain",		"",				HandleComplain},
+		Page{"/favicon.ico",	"",				HandleFavicon},
+		Page{"/robots.txt",		"",				HandleRobots}}
 	for _,tmp := range handlers {
 		h:=tmp//so closure isn't global
 		http.HandleFunc(h.domain, func(w http.ResponseWriter, r *http.Request){
@@ -161,6 +162,11 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 
 func HandleFavicon(w http.ResponseWriter, r *http.Request){
 	http.ServeFile(w, r, "./config/static/favicon.ico")
+}
+
+
+func HandleRobots(w http.ResponseWriter, r *http.Request){
+	http.ServeFile(w, r, "./config/static/robots.txt")
 }
 
 func Test(w http.ResponseWriter, r *http.Request){

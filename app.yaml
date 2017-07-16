@@ -7,6 +7,19 @@ handlers:
   upload: config/static/.*
   secure: always
   application_readable: true
+
+- url: /robots\.txt
+  static_files: config/static/robots.txt
+  upload: config/static/robots\.txt
+  secure: always
+  application_readable: true
+
+- url: /favicon\.ico
+  static_files: config/static/favicon.ico
+  upload: config/static/favicon\.ico
+  secure: always
+  application_readable: true
+
 - url: /.*
   script: _go_app
   secure: always
