@@ -1,5 +1,0 @@
-#!/bin/bash
-
-export GOPATH=$(cd ../;pwd)
-cd $GOPATH/src/EgMan/SelfTitled
-go install
