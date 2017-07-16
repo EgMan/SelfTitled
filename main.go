@@ -96,7 +96,7 @@ func init() {
 			}
 		})
 	}
-	http.Handle("/files/", http.StripPrefix("/files/", http.FileServer(http.Dir("./config/static/"))))
+	//http.Handle("/files/", http.StripPrefix("/files/", http.FileServer(http.Dir("./config/static/"))))
 	log.Printf("Server up and listening on port %s\n", port)
 	//appengine.Main()
 	//log.Fatal(http.ListenAndServe(":"+port, nil))

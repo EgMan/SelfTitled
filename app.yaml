@@ -2,8 +2,11 @@ runtime: go
 api_version: go1
 
 handlers:
-- url: /files/
-  static_dir: ./config/static
+- url: /files/(.+)
+  static_files: config/static/\1
+  upload: config/static/.*
+  secure: always
+  application_readable: true
 - url: /.*
   script: _go_app
   secure: always
