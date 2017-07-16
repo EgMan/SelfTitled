@@ -1,0 +1,27 @@
+<head></head>
+<body>
+	<link rel="stylesheet" type="text/css" href="/files/semantic.min.css">
+	<script 
+		src="https://code.jquery.com/jquery-3.1.1.min.js" 
+		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" 
+		crossorigin="anonymous">
+	</script>
+	<script src="/files/semantic.min.js"></script>	<script src="/files/semantic.min.js"></script>
+	<script>
+		parent.select("other")
+	</script>
+		<style>
+		/*#addrDiv { width:100%; height:100%; position: relative; bottom: 0;}
+		#addr { width:100%; height:90%; position: absolute; bottom: 33;}
+		#seg { width:100%; }*/
+		#addrDiv { width:100%; height:100%; position: fixed; vertical-align: bottom}
+		#addr { width:100%; height:90%; position: fixed;  vertical-align: bottom }
+		#seg { width:100%;  vertical-align: bottom}
+		</style>
+	<div id="addrDiv">
+		<img id="addr" src="/files/bitcoinAddr.svg">
+		<!-- <div class="ui black inverted vertical footer segment"></div> -->
+		<div class="ui vertical footer segment center aligned" id="seg">
+		</div>
+	</div>
+</body>

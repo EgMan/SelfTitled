@@ -1,0 +1,163 @@
+<head>
+	<script>
+		parent.select("home")
+	</script>
+	<link rel="stylesheet" type="text/css" href="/files/semantic.min.css">
+	<script 
+		src="https://code.jquery.com/jquery-3.1.1.min.js" 
+		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" 
+		crossorigin="anonymous">
+	</script>
+	<script src="/files/semantic.min.js"></script>	<script src="/files/semantic.min.js"></script>
+</head>
+<body>
+	<script>
+		var myEvent = new CustomEvent("pop", {});
+		$(document).ready(function(){
+			//parent.select("home")
+			$('#count').html(parent.comp_count)
+			$('#complain').click(function(){
+				me=$(this)
+				me.parent().parent().attr('findme', 'findme')
+				me.addClass('loading').addClass('disabled')
+				$.post("/complain",{},
+				function(data, status){
+					me.removeClass('loading').removeClass('disabled')
+					//$('#not1').transition('fade up')
+					if (data.charAt(0)!="#"){
+						me.parent().popup({
+							title: ' Your damn complaint submitted!',
+							content: 'It will be carefully considered, thank you.',
+							on:'click',
+							position: 'bottom center',
+							variation: 'mini'
+							
+						}).popup('show');
+						$('#count').html(data)
+						//commitMessage("Your damn complaint has been submitted!", "It will be carefully considered, thank you.")
+					}
+					else{
+						me.parent().popup({
+							title: "Don't get too whiny now",
+							content: `Complain again in ${data.replace('#', '')} minutes`,
+							on:'click',
+							inline:true,
+							position: 'bottom center',
+							variation: 'mini',
+						}).popup('show');
+						// me.parent().popup({
+						// 	inline:true,
+						// 	on: 'manual'
+						// }).popup('show');
+						//commitMessage("Don't be too whiny now", `Try again in ${data.replace('#', '')} minutes`)
+					}
+					//$('.ui.modal').modal('show')
+				});
+			});
+			$('.message .close').on('click', function() {
+    			$(this).closest('.message').transition('scale')
+  			});
+		});
+
+// <div class="ui message transition visible" style="display: block !important;">
+// 	<i class="close icon"></i>
+// 	<div class="header">[object HTMLDivElement]</div>
+// 	<p>it works</p>
+// </div>
+
+// <div class="ui hidden message">
+// 	<i class="close icon"></i>
+// 	<div class="header"></div>
+// 	<p>it works</p>
+// </div>
+
+// <div class="ui hidden message" id="not1">
+// 	<i class="close icon"></i>
+// 	<div class="header">
+// 		Your complaint has been submitted.
+// 	</div>
+// 	<p>It will be carefully considered</p>
+// </div>
+
+		function commitMessage(title, description){
+			var icon = document.createElement("i")
+			icon.setAttribute("class", "close icon")
+
+			var titl = document.createElement("div");
+			titl.setAttribute("class", "header")
+			titl.innerHTML = title
+			// var ttxt = document.createTextNode(title);
+			// titl.appendChild(ttxt);
+
+
+			var desctip = document.createElement("p");
+			var dtxt = document.createTextNode(description);
+			desctip.appendChild(dtxt);
+
+			var rootMsg = document.createElement("div")
+			rootMsg.setAttribute("class", "ui hidden message")
+			rootMsg.setAttribute("id", "not1")
+			rootMsg.setAttribute("style", "margin:0;")
+
+			rootMsg.appendChild(icon)
+			rootMsg.appendChild(titl)
+			rootMsg.appendChild(desctip)
+			br = document.createElement("br")
+			br.setAttribute("style", "line-height:0px;")
+
+			container = document.getElementById("messages")
+
+			container.insertBefore(rootMsg, container.firstChild)
+			container.insertBefore(br, rootMsg)
+
+			$(rootMsg).transition("fade up")
+			$(icon).on('click', function() {
+    			$(this).closest('.message').transition('scale')
+  			});
+		}
+	</script>
+
+	<style>
+		#center_block {
+    		/*vertical-align: center;*/
+    		display: inline-block;
+    		text-align: center;
+    		width: 100%;
+    		height: 100%;
+  			align-items: center;
+  			justify-content: center;
+
+		}
+		#rotating {
+			/*vertical-align: center;*/
+			height: 61.8%;
+			width: auto;
+		}
+	</style>
+	<div id="center_block">
+		<img id="rotating" src="/files/rotating3.gif" style = 'margin: auto;' title = 'Fun Fact: %90 of people perceive this animation as rotating counterclockwise, but you might be surprised to learn that both directions can be seen.  Aren’t optical illusions the best?'>
+		</br>
+		<div style = 'width:61%;justify-content: center;margin:auto;'>
+		<div class="ui labeled button" tabindex="0" style = 'margin: auto;justify-content: center;'>
+			<div class="ui brown button" id="complain">
+				<i class="heart icon"></i> Submit a complaint
+			</div>
+			<a class="ui basic brown left pointing label" id="count">
+				???
+			</a>
+		</div>
+		<div class="ui popup" id="popboy" style="width:90%;">Your complaint has been submitted!</div>
+
+	</div>
+		<div id="messages"></div>
+	</div>
+
+	<div class="ui small modal">
+		<div class="header">Your complaint has been submitted</div>
+		<div class="image content">
+			<div class="description">
+				<p>It will be duly noted</p>
+    		</div>
+  		</div>
+	</div>
+</body>
